@@ -45,14 +45,11 @@ app.all("*", (req, res) => {
   });
 });
 
-const PORT = process.env.SERVER_PORT || 7001;
+
 mongoose
   .connect(process.env.DATABASE)
   .then(() => {
     console.log("Connected to MongoDB");
-    // app.listen(PORT, () => {
-    //   console.log(`Server is running on port ${PORT}`);
-    // });
   })
   .catch((err) => {
     console.error("Error connecting to MongoDB", err);
