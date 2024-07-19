@@ -50,9 +50,9 @@ mongoose
   .connect(process.env.DATABASE)
   .then(() => {
     console.log("Connected to MongoDB");
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
+    // app.listen(PORT, () => {
+    //   console.log(`Server is running on port ${PORT}`);
+    // });
   })
   .catch((err) => {
     console.error("Error connecting to MongoDB", err);
