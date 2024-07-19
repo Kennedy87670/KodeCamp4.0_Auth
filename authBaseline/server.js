@@ -7,6 +7,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const createError = require("http-errors");
+const swaggerSetup = require("./swagger");
 
 // const adminRouter = require("./routes/admin");
 const usersRouter = require("./routes/users");
@@ -26,6 +27,9 @@ app.use("/v1/auth", authRouter);
 // app.use("/v1/", adminRouter);
 app.use("/v1/users", usersRouter);
 
+
+// Setup Swagger
+swaggerSetup(app);
 
 // Root route handler
 app.get("/", (req, res) => {
