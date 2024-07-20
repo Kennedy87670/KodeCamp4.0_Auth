@@ -26,12 +26,15 @@ var router = express.Router();
  *               - fullName
  *               - email
  *               - password
+ *               - role
  *             properties:
  *               fullName:
  *                 type: string
  *               email:
  *                 type: string
  *               password:
+ *                 type: string
+ *               role:
  *                 type: string
  *     responses:
  *       201:

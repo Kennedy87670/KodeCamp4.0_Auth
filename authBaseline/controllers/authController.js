@@ -139,8 +139,6 @@ const { sendEmail } = require("../utils/emailUtil");
 //   }
 // };
 
-
-
 /**
  * @swagger
  * /v1/auth/register:
@@ -157,29 +155,59 @@ const { sendEmail } = require("../utils/emailUtil");
  *               - fullName
  *               - email
  *               - password
+ *               - role
  *             properties:
  *               fullName:
  *                 type: string
  *               email:
  *                 type: string
+ *                 format: email
  *               password:
  *                 type: string
+ *                 format: password
+ *               role:
+ *                 type: string
+ *                 enum: [user, admin]
  *     responses:
  *       201:
  *         description: User created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 message:
+ *                   type: string
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     fullName:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *                       format: email
+ *                     role:
+ *                       type: string
+ *                       enum: [user, admin]
+ *       400:
+ *         description: Bad Request
  *       500:
- *         description: Internal server error
+ *         description: Internal Server Error
  */
+
 
 exports.register = async (req, res, next) => {
   try {
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, role } = req.body;
     const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
     const user = await User.create({
       fullName,
       email,
       password: hashedPassword,
+      role,
     });
 
     res.status(201).json({
@@ -188,6 +216,7 @@ exports.register = async (req, res, next) => {
       data: {
         fullName,
         email,
+        role
       },
     });
   } catch (error) {
@@ -400,5 +429,3 @@ exports.profile = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-
