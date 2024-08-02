@@ -10,7 +10,7 @@ const createError = require("http-errors");
 const swaggerSetup = require("./swagger");
 
 // const adminRouter = require("./routes/admin");
-const usersRouter = require("./routes/users");
+const usersRouter = require("./routes/userRoutes");
 const authRouter = require("./routes/auth");
 
 const app = express();
@@ -24,7 +24,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Routes setup
 app.use("/v1/auth", authRouter);
-// app.use("/v1/", adminRouter);
 app.use("/v1/users", usersRouter);
 
 

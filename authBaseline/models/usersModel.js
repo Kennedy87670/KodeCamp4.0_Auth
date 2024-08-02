@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const userSchema = new mongoose.Schema(
   {
@@ -10,6 +11,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      match: [
+        /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
+        'Please fill a valid email address',
+      ],
     },
     password: {
       type: String,
@@ -25,5 +30,9 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+userSchema.index({ fullName: 'text', email: 'text' }); 
+userSchema.plugin(mongoosePaginate);
+
 
 module.exports = mongoose.model("User", userSchema);
